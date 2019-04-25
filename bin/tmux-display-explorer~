@@ -1,0 +1,85 @@
+#!/bin/bash
+
+## Setup Explorer "Window" functions ##
+function PrintExplorerBar
+{
+	echo -e "\033[01;44mExplorer                                                                                      \033[00;0m"
+	echo
+}
+
+function PrintExplorerBarPreview
+{
+	echo -e "\033[01;44mExplorer [PREVIEW]                                                                            \033[00;0m"
+        echo
+}
+	
+function PrintExplorerContent
+{
+	ls -aF --color
+	echo
+	echo -e "\033[01;35mCurrent Directory\033[0;0m"
+	pwd
+}
+
+
+## Setup Explorer variables and "initialize" it ##
+# Setup Explorer environment
+SAVED_DIR=$TMUX_CURRENT_DIR
+IFS=' '
+
+# Print Explorer window
+PrintExplorerBar
+PrintExplorerContent
+
+
+## Update window based on current directory ##
+while read -s EXPLORER_TYPE NEW_DIR ORIGIN
+do
+	case $EXPLORER_TYPE in
+		"normal")
+			# Simple directory change and display
+			if ! [[ $SAVED_DIR -ef $NEW_DIR ]]
+			then
+				clear
+				PrintExplorerBar
+				cd "$NEW_DIR" || echo "$NEW_DIR is not a directory. Going back to original directory."
+				clear
+				PrintExplorerBar
+				PrintExplorerContent
+				SAVED_DIR=$NEW_DIR
+			fi
+			;;
+		"preview")
+			# Temporarily changes directory before changing back
+			clear
+			PrintExplorerBarPreview
+			cd "$NEW_DIR" || echo "$NEW_DIR is not a directory, will reset in a few moments."
+			PrintExplorerContent
+			echo
+			TIMER=5
+			for (( i=$TIMER;i>0;--i ))
+			do
+				printf "\033[01;36mPreview:\033[0;0m "
+				echo -ne "$i\r"
+				sleep 1
+			done
+			cd "$ORIGIN" || echo "$ORIGIN is not a directory, please use the \"cd\"command to reset the explorer."
+			clear
+			PrintExplorerBar
+			PrintExplorerContent
+			;;
+		"refresh")
+			# Refreshes the display based on current directory
+			CURRENT=$(pwd)
+			cd "../" || cd "$TMUX_CURRENT_DIR"
+			cd "$CURRENT" || echo "Unknown error occurred while refreshing"
+			clear
+			PrintExplorerBar
+			PrintExplorerContent
+			;;
+		*)
+			# If the prefix isn't supported
+			echo "Prefix ($EXPLORER_TYPE) does not exist."
+			;;
+	esac
+done

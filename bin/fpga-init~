@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Basic Trap and Exit
+trap "exit 1" TERM
+TOP_PID=$$
+
+function initCLError()
+{
+        echo [ERROR] Initialization Error: likely have already sourced init_opencl.sh
+        kill -s TERM $TOP_PID
+}
+
+function initConfigureError()
+{
+        echo [ERROR] Initialization Error: reconfiguration failed using hello_world
+        kill -s TERM $TOP_PID
+}
+
+
+# Variable Directories (put directory location without "/" at the end)
+INIT_CL_DIR=/home/root/bin/init
+HELLO_WORLD_CONFIG_DIR=/home/root/bin/init/hello_world
+
+
+# Initalization
+echo +-------------------------+
+echo \| Initializing FPGA Board \|
+echo +-------------------------+
+
+echo -sourcing init_opencl.sh
+source $INIT_CL_DIR/init_opencl.sh || initCLError
+
+echo -reconfiguring board
+aocl program /dev/acl0 $HELLO_WORLD_CONFIG_DIR/hello_world.aocx
+$HELLO_WORLD_CONFIG_DIR/hello_world
+
+echo +-------------------------+
+echo \| Initalization Complete! \|
+echo +-------------------------+
+

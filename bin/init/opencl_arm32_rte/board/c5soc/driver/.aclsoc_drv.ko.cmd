@@ -1,0 +1,1 @@
+cmd_/C5S/linux_socfpga/3.10-ltsi/driver/aclsoc_drv.ko := arm-linux-gnueabihf-ld -EL -r  -T /C5S/linux_socfpga/3.10-ltsi/linux-socfpga/scripts/module-common.lds --build-id  -o /C5S/linux_socfpga/3.10-ltsi/driver/aclsoc_drv.ko /C5S/linux_socfpga/3.10-ltsi/driver/aclsoc_drv.o /C5S/linux_socfpga/3.10-ltsi/driver/aclsoc_drv.mod.o

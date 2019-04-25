@@ -1,0 +1,26 @@
+#!/bin/bash
+
+## Stuff ##
+clear
+echo "              _                            _          _                        "
+echo "__      _____| | ___ ___  _ __ ___   ___  | |_ ___   | |_ _ __ ___  _   ___  __"
+echo "\ \ /\ / / _ \ |/ __/ _ \| '_ \` _ \ / _ \ | __/ _ \  | __| '_ \` _ \| | | \ \/ /"
+echo " \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |_| | | | | | |_| |>  < "
+echo "  \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/   \__|_| |_| |_|\__,_/_/\_\\"
+echo
+echo "This version of tmux has been customized so that it has an active file explorer"
+echo "that will reflect the current directory that you are in. If it doesn't work as"
+echo "intended, try using \"refresh\" to update the file explorer."
+echo
+echo "There are custom and modified commands to make this tmux suite work."
+echo -e "\tlp\tFunctions like ls/ll but is only reflected on the file explorer."
+echo -e "\trefresh\tRefreshes the file explorer."
+echo -e "\tcd\tOverridden to accommodate the file explorer."
+echo -e "\tmv\tOverridden to accommodate the file explorer."
+echo -e "\trm\tOverridden to accommodate the file explorer."
+echo -e "\tcp\tOverridden to accommodate the file explorer."
+echo -e "\tscp\tOverridden to accommodate the file explorer."
+echo -e "\tgit\tOverridden to accommodate the file explorer."
+echo -e "\ttar\tOverridden to accommodate the file explorer."
+echo
+echo

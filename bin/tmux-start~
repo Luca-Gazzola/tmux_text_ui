@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## Launches tmux with specified layout #
+tmux new-session -d -s Desktop
+tmux split-window -h tmux-display-explorer
+tmux split-window -v
+tmux send-keys 
+tmux new-window
+tmux rename-window -t 0 Main
+tmux rename-window -t 1 Misc
+tmux select-window -t Main
+tmux select-pane -t 0
+tmux attach-session -t Desktop
